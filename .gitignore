@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.env
+.env
+.venv/
+venv/
+venv.bak/
+*.egg-info/
+dist/
+build/
+
+# Editor/OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Data, indexes, embeddings, model artifacts 
+/data/
+/data/*
+!data/.gitkeep        # optional to keep folder
+*.faiss
+*.npy
+embeddings.faiss
+embeddings.npy
+cluster_*.faiss
+clustered_incidents.json
+cleaned_incidents.json
+cluster_model.pkl
+*.pkl
+
+# Tests / caches
+.coverage
+.pytest_cache/
+
+# Logs
+*.log
+logs/

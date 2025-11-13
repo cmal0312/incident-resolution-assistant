@@ -1,0 +1,12 @@
+# Core dependencies
+streamlit==1.39.0
+pandas==2.2.3
+numpy==2.1.2
+faiss-cpu==1.9.0
+sentence-transformers==3.1.1
+requests==2.32.3
+
+# Optional 
+openpyxl==3.1.5     # for reading Excel files
+tqdm==4.66.5        # for progress bars
+pymongo==4.10.1
