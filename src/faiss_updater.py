@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import faiss
 from sentence_transformers import SentenceTransformer
-from logger import get_logger
+from utils.logger import get_logger
 from cluster_manager import recluster_and_update_indices
 from utils.config import config
 

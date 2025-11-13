@@ -14,8 +14,15 @@ from faiss_updater import update_faiss_with_new_data
 from retriever import IncidentRetriever
 from utils.logger import get_logger
 import json
+from dotenv import load_dotenv
+
+load_dotenv()
 
 logger = get_logger("app")
+
+DEFAULT_AI_AGENT_ID = os.getenv("AI_AGENT_ID")
+DEFAULT_SUMMARIZATION_AGENT_ID = os.getenv("SUMMARIZATION_AGENT_ID")
+DEFAULT_ENDPOINT = os.getenv("SAGE_ENDPOINT")
 
 st.set_page_config(page_title="Incident Search", layout="centered")
 st.title("Incident Resolution Assistant")
@@ -49,9 +56,9 @@ if st.button("Search"):
                 else:
                     summary = get_summarized_output(
                         results.to_dict(orient="records"),
-                        ai_agent_id="6912d9f940e2ac98c63ddb46",
+                        ai_agent_id= DEFAULT_SUMMARIZATION_AGENT_ID,
                         configuration_environment="DEV",
-                        endpoint="https://sage-stg.paastry.sysco.net/api/sysco-gen-ai-platform/agents/v1/content/generic/answer",
+                        endpoint= DEFAULT_ENDPOINT,
                     )
                     # Safely navigate nested JSON
                     agent_response = (
@@ -64,17 +71,17 @@ if st.button("Search"):
                         st.warning("No summarized response found.")
 
                     else:
-                        st.subheader("📋 Related Incidents")
+                        st.subheader("Related Incidents")
                         st.write(", ".join(agent_response.get("incident_numbers", [])))
-                        st.subheader("📄 Overview")
+                        st.subheader("Overview")
                         st.write(agent_response.get("overview", "N/A"))
-                        st.subheader("🔍 Common Reasons")
+                        st.subheader("Common Reasons")
                         for reason in agent_response.get("common_reasons", []):
                             st.write(f"- {reason}")
-                        st.subheader("🛠️ Suggested Resolutions")
+                        st.subheader("Suggested Resolutions")
                         for fix in agent_response.get("suggested_resolutions", []):
                             st.write(f"- {fix}")
-                        st.subheader("🧠 Key Takeaways")
+                        st.subheader("Key Takeaways")
                         st.write(agent_response.get("key_takeaways", "N/A"))
 
         except Exception:
@@ -125,9 +132,9 @@ if uploaded_file is not None:
             try:
                 response_json = post_incident_json(
                     json_path=batch_path,
-                    ai_agent_id="68ffa3d1ef722f5318fdab74",
+                    ai_agent_id= DEFAULT_AI_AGENT_ID,
                     configuration_environment="DEV",
-                    endpoint="https://sage-stg.paastry.sysco.net/api/sysco-gen-ai-platform/agents/v1/content/generic/answer",
+                    endpoint= DEFAULT_ENDPOINT,
                 )
                 logger.info("Batch %d response: %s", i + 1, response_json)
                 success_flag = response_json.get("success") or (

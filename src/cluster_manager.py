@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import faiss
 from sklearn.cluster import MiniBatchKMeans
-from logger import get_logger
+from utils.logger import get_logger
 from utils.config import config
 
 logger = get_logger("cluster_manager")
